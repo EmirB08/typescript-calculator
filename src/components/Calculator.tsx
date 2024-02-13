@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { evaluate } from "mathjs";
 import Button from "@mui/joy/Button";
-import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
+import Input from "@mui/joy/Input";
 
 const Calculator: React.FC = () => {
 	const [input, setInput] = useState("");
@@ -22,9 +22,17 @@ const Calculator: React.FC = () => {
 	const clearInput = () => setInput("");
 
 	return (
-		<div>
-			<div>{input || "0"}</div>
-			<div>
+		<Box
+			sx={{
+				maxWidth: 300,
+				m: "auto",
+				p: 2,
+				border: "1px solid",
+				borderColor: "divider",
+			}}>
+			<Input value={input || "0"} readOnly fullWidth sx={{ mb: 2 }} />
+			<Box
+				sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1 }}>
 				{[
 					"1",
 					"2",
@@ -44,18 +52,20 @@ const Calculator: React.FC = () => {
 					"=",
 					"C",
 				].map((key) => (
-					<button
+					<Button
 						key={key}
 						onClick={() => {
 							if (key === "=") calculateResult();
 							else if (key === "C") clearInput();
 							else handleInput(key);
-						}}>
+						}}
+						variant="outlined"
+						color="neutral">
 						{key}
-					</button>
+					</Button>
 				))}
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 };
 
