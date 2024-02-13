@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { evaluate } from "mathjs";
+import Button from "@mui/joy/Button";
+import Typography from "@mui/joy/Typography";
+import Box from "@mui/joy/Box";
 
 const Calculator: React.FC = () => {
 	const [input, setInput] = useState("");
