@@ -23,7 +23,7 @@ const Calculator: React.FC = () => {
 
 	const clearInput = (): void => setInput("");
 
-	const handleClick = (key: string): void => { // moved from return for better readability, switch case
+	const handleClick = (key: string): void => {
 		switch (key) {
 			case "=":
 				calculateResult();
@@ -31,11 +31,37 @@ const Calculator: React.FC = () => {
 			case "C":
 				clearInput();
 				break;
+			case "-/+":
+				setInput((currentInput) =>
+					String(
+						currentInput.startsWith("-")
+							? currentInput.slice(1)
+							: `-${currentInput}`
+					)
+				);
+				break;
+			case "%":
+				try {
+					const percentage = evaluate(`${input}/100`);
+					setInput(String(percentage));
+				} catch (error) {
+					console.error(error);
+					setInput("Error");
+				}
+				break;
+			case "√":
+				try {
+					const root = evaluate(`sqrt(${input})`);
+					setInput(String(root));
+				} catch (error) {
+					console.error(error);
+					setInput("Error");
+				}
+				break;
 			default:
 				handleInput(key);
 		}
 	};
-
 	return (
 		<Box
 			sx={{
@@ -66,6 +92,9 @@ const Calculator: React.FC = () => {
 					"/",
 					"=",
 					"C",
+					"-/+",
+					"%",
+					"√",
 				].map((key) => (
 					<Button
 						key={key}
