@@ -5,21 +5,36 @@ import Box from "@mui/joy/Box";
 import Input from "@mui/joy/Input";
 
 const Calculator: React.FC = () => {
-	const [input, setInput] = useState("");
+	const [input, setInput] = useState<string>("");
 
-	const handleInput = (value: string) => {
+	const handleInput = (value: string): void => {
 		setInput((currentInput) => currentInput + value);
 	};
 
-	const calculateResult = () => {
+	const calculateResult = (): void => {
 		try {
-			setInput(String(evaluate(input)));
+			const result = evaluate(input);
+			setInput(String(result));
 		} catch (error) {
 			setInput("Error");
+			console.error(error);
 		}
 	};
 
-	const clearInput = () => setInput("");
+	const clearInput = (): void => setInput("");
+
+	const handleClick = (key: string): void => { // moved from return for better readability, switch case
+		switch (key) {
+			case "=":
+				calculateResult();
+				break;
+			case "C":
+				clearInput();
+				break;
+			default:
+				handleInput(key);
+		}
+	};
 
 	return (
 		<Box
@@ -54,11 +69,7 @@ const Calculator: React.FC = () => {
 				].map((key) => (
 					<Button
 						key={key}
-						onClick={() => {
-							if (key === "=") calculateResult();
-							else if (key === "C") clearInput();
-							else handleInput(key);
-						}}
+						onClick={() => handleClick(key)}
 						variant="outlined"
 						color="neutral">
 						{key}
