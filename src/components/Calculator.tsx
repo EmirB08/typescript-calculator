@@ -73,7 +73,7 @@ const Calculator: React.FC = () => {
 			}}>
 			<Input value={input || "0"} readOnly fullWidth sx={{ mb: 2 }} />
 			<Box
-				sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1 }}>
+				sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0.2 }}>
 				{[
 					"1",
 					"2",
@@ -99,7 +99,7 @@ const Calculator: React.FC = () => {
 					<Button
 						key={key}
 						onClick={() => handleClick(key)}
-						variant="outlined"
+						variant="solid"
 						color="neutral">
 						{key}
 					</Button>
